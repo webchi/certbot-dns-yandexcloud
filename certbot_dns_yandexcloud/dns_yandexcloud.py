@@ -1,4 +1,4 @@
-"""DNS Authenticator for ISPConfig."""
+"""DNS Authenticator for YandexCloud."""
 import json
 import logging
 import time
@@ -16,12 +16,12 @@ logger = logging.getLogger(__name__)
 @zope.interface.implementer(interfaces.IAuthenticator)
 @zope.interface.provider(interfaces.IPluginFactory)
 class Authenticator(dns_common.DNSAuthenticator):
-    """DNS Authenticator for ISPConfig
+    """DNS Authenticator for YandexCloud
 
-    This Authenticator uses the ISPConfig Remote REST API to fulfill a dns-01 challenge.
+    This Authenticator uses the YandexCloud Remote REST API to fulfill a dns-01 challenge.
     """
 
-    description = "Obtain certificates using a DNS TXT record (if you are using ISPConfig for DNS)."
+    description = "Obtain certificates using a DNS TXT record (if you are using YandexCloud for DNS)."
     ttl = 60
 
     def __init__(self, *args, **kwargs):
@@ -33,22 +33,22 @@ class Authenticator(dns_common.DNSAuthenticator):
         super(Authenticator, cls).add_parser_arguments(
             add, default_propagation_seconds=120
         )
-        add("credentials", help="ISPConfig credentials INI file.")
+        add("credentials", help="YandexCloud credentials INI file.")
 
     def more_info(self):  # pylint: disable=missing-docstring,no-self-use
         return (
             "This plugin configures a DNS TXT record to respond to a dns-01 challenge using "
-            + "the ISPConfig Remote REST API."
+            + "the YandexCloud Remote REST API."
         )
 
     def _setup_credentials(self):
         self.credentials = self._configure_credentials(
             "credentials",
-            "ISPConfig credentials INI file",
+            "YandexCloud credentials INI file",
             {
-                "endpoint": "URL of the ISPConfig Remote API.",
-                "username": "Username for ISPConfig Remote API.",
-                "password": "Password for ISPConfig Remote API.",
+                "endpoint": "URL of the YandexCloud Remote API.",
+                "username": "Username for YandexCloud Remote API.",
+                "password": "Password for YandexCloud Remote API.",
             },
         )
 

@@ -1,0 +1,25 @@
+*.pyc
+*.egg-info/
+.eggs/
+build/
+dist*/
+/venv*/
+/kgs/
+/.tox/
+/releases*/
+/log*
+letsencrypt.log
+certbot.log
+
+# pytest cache
+.cache
+.mypy_cache/
+.pytest_cache/
+
+# docker files
+.docker
+
+# certbot tests
+.certbot_test_workspace
+**/assets/pebble*
+**/assets/challtestsrv*

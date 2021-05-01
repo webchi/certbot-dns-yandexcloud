@@ -1,4 +1,4 @@
-"""Tests for certbot_dns_ispconfig.dns_ispconfig."""
+"""Tests for certbot_dns_yandexcloud.dns_yandexcloud."""
 
 import unittest
 
@@ -23,7 +23,7 @@ class AuthenticatorTest(
     def setUp(self):
         super(AuthenticatorTest, self).setUp()
 
-        from certbot_dns_ispconfig.dns_ispconfig import Authenticator
+        from certbot_dns_yandexcloud.dns_yandexcloud import Authenticator
 
         path = os.path.join(self.tempdir, "file.ini")
         dns_test_common.write(
@@ -75,7 +75,7 @@ class ISPConfigClientTest(unittest.TestCase):
     record_ttl = 42
 
     def setUp(self):
-        from certbot_dns_ispconfig.dns_ispconfig import _ISPConfigClient
+        from certbot_dns_yandexcloud.dns_yandexcloud import _ISPConfigClient
 
         self.adapter = requests_mock.Adapter()
 
