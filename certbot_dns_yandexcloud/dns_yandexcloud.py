@@ -3,6 +3,8 @@ import json
 import logging
 import time
 
+import yandex
+
 import requests
 import zope.interface
 
@@ -46,31 +48,27 @@ class Authenticator(dns_common.DNSAuthenticator):
             "credentials",
             "YandexCloud credentials INI file",
             {
-                "endpoint": "URL of the YandexCloud Remote API.",
-                "username": "Username for YandexCloud Remote API.",
-                "password": "Password for YandexCloud Remote API.",
+                "token": "URL of the YandexCloud Remote API."
             },
         )
 
     def _perform(self, domain, validation_name, validation):
-        self._get_ispconfig_client().add_txt_record(
+        self._get_yandexcloud_client().add_txt_record(
             domain, validation_name, validation, self.ttl
         )
 
     def _cleanup(self, domain, validation_name, validation):
-        self._get_ispconfig_client().del_txt_record(
+        self._get_yandexcloud_client().del_txt_record(
             domain, validation_name, validation, self.ttl
         )
 
-    def _get_ispconfig_client(self):
-        return _ISPConfigClient(
-            self.credentials.conf("endpoint"),
-            self.credentials.conf("username"),
-            self.credentials.conf("password"),
+    def _get_yandexcloud_client(self):
+        return _YandexCloudClient(
+            self.credentials.conf("token"),
         )
 
 
-class _ISPConfigClient(object):
+class _YandexCloudClient(object):
     """
     Encapsulates all communication with the ISPConfig Remote REST API.
     """

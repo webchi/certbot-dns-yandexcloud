@@ -15,6 +15,7 @@ from certbot.tests import util as test_util
 FAKE_USER = "remoteuser"
 FAKE_PW = "password"
 FAKE_ENDPOINT = "mock://endpoint"
+FAKE_TOKEN = "token"
 
 
 class AuthenticatorTest(
@@ -31,6 +32,7 @@ class AuthenticatorTest(
                 "ispconfig_username": FAKE_USER,
                 "ispconfig_password": FAKE_PW,
                 "ispconfig_endpoint": FAKE_ENDPOINT,
+                "ispconfig_token":    FAKE_TOKEN,
             },
             path,
         )
@@ -43,8 +45,8 @@ class AuthenticatorTest(
         self.auth = Authenticator(self.config, "ispconfig")
 
         self.mock_client = mock.MagicMock()
-        # _get_ispconfig_client | pylint: disable=protected-access
-        self.auth._get_ispconfig_client = mock.MagicMock(return_value=self.mock_client)
+        # _get_yandexcloud_client | pylint: disable=protected-access
+        self.auth._get_yandexcloud_client = mock.MagicMock(return_value=self.mock_client)
 
     def test_perform(self):
         self.auth.perform([self.achall])
@@ -69,17 +71,17 @@ class AuthenticatorTest(
         self.assertEqual(expected, self.mock_client.mock_calls)
 
 
-class ISPConfigClientTest(unittest.TestCase):
+class YandexCloudClientTest(unittest.TestCase):
     record_name = "foo"
     record_content = "bar"
     record_ttl = 42
 
     def setUp(self):
-        from certbot_dns_yandexcloud.dns_yandexcloud import _ISPConfigClient
+        from certbot_dns_yandexcloud.dns_yandexcloud import _YandexCloudClient
 
         self.adapter = requests_mock.Adapter()
 
-        self.client = _ISPConfigClient(FAKE_ENDPOINT, FAKE_USER, FAKE_PW)
+        self.client = _YandexCloudClient(FAKE_ENDPOINT, FAKE_USER, FAKE_PW)
         self.client.session.mount("mock", self.adapter)
 
     def _register_response(
