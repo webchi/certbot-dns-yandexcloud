@@ -1,4 +1,4 @@
-certbot-dns-ispconfig
+certbot-dns-yandex-cloud
 =====================
 
 ISPConfig_ DNS Authenticator plugin for Certbot
