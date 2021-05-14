@@ -1,7 +1,7 @@
 """
 The `~certbot_dns_ispconfig.dns_ispconfig` plugin automates the process of
 completing a ``dns-01`` challenge (`~acme.challenges.DNS01`) by creating, and
-subsequently removing, TXT records using the ISPConfig REST API.
+subsequently removing, TXT records using the Yandex Cloud REST API.
 
 
 Named Arguments
